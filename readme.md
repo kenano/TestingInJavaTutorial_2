@@ -16,3 +16,16 @@ each test method.
 
 ### Remove magic numbers
 Hard coded values replaced with constants.
+
+## Before and After annotations
+JUnit will run these blocks of code before each test (or all tests)
+
+    	 @Before                 // Before each test method runs
+    	 @After                  // After each test method runs
+    	 @BeforeClass            // Before all tests in the class
+    	 @AfterClass             // After all tests in the class
+    	 
+Before/After class should be annotating static methods.
+
+Since a cafe will always be created before a test, its instantiation is being moved to the "before" annotated method.    	 
+    	 

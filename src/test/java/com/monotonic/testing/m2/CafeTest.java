@@ -1,6 +1,6 @@
 package com.monotonic.testing.m2;
 
-import org.junit.Test;
+import org.junit.*;
 
 import static com.monotonic.testing.m2.CoffeeType.Espresso;
 import static com.monotonic.testing.m2.CoffeeType.Latte;
@@ -13,10 +13,43 @@ public class CafeTest {
     public static final int NO_MILK = 0;
     public static final int NO_BEANS = 0;
 
+    private Cafe cafe;
+
+    //region junit helper methods
+
+    /*
+     * These methods are invoked before all/individual junit test(s).
+     */
+    @BeforeClass
+    public static void beforeClass() {
+        System.out.println("Before class");
+    }
+
+    @AfterClass
+    public static void afterClass() {
+        System.out.println("After class");
+    }
+
+    @Before
+    public void before() {
+        System.out.println("before");
+
+        //we will always need to instantiate a cafe fore a test.
+        cafe = new Cafe();
+    }
+
+    @After
+    public void after() {
+        System.out.println("after");
+    }
+    //endregion
+
+
     @Test
     public void canBrewEspresso() {
         // given
-        Cafe cafe = cafeWithBeans();
+//        Cafe cafe = cafeWithBeans();
+        withBeans();
 
         // when
         Coffee coffee = cafe.brew(Espresso);
@@ -28,12 +61,11 @@ public class CafeTest {
         assertEquals("Wrong coffee type", Espresso, coffee.getType());
     }
 
-
-
     @Test
     public void brewingEspressoConsumesBeans() {
         // given
-        Cafe cafe = cafeWithBeans();
+//        Cafe cafe = cafeWithBeans();
+        withBeans();
 
         // when
         cafe.brew(Espresso);
@@ -45,7 +77,8 @@ public class CafeTest {
     @Test
     public void canBrewLatte() {
         // given
-        Cafe cafe = cafeWithBeans();
+//        Cafe cafe = cafeWithBeans();
+        withBeans();
 
         //this is a latte with the required amount of milk. Dont hard code the value
 //        cafe.restockMilk(227);
@@ -87,7 +120,7 @@ public class CafeTest {
     @Test(expected = IllegalStateException.class)
     public void lattesRequireMilk() {
         // given
-        Cafe cafe = cafeWithBeans();
+        withBeans();
 
         // when
         cafe.brew(Latte);
@@ -96,12 +129,25 @@ public class CafeTest {
     //the contents of this method were previously in 3 of thr above test methods.
     // using a method extractor refactor IntelliJ can detect other occurrences of the below code block and
     // convert them to the below method call.
-    private Cafe cafeWithBeans() {
-        Cafe cafe = new Cafe();
-        //dont use magic numbers
-//        cafe.restockBeans(7);
+    // Since cafe will be created in before method, this will be refactored to "withBeans()"
+//    private Cafe cafeWithBeans() {
+//        Cafe cafe = new Cafe();
+//        //dont use magic numbers
+////        cafe.restockBeans(7);
+//        cafe.restockBeans(ESPRESSO_BEANS);
+//        return cafe;
+//    }
+
+    private void withBeans() {
+
+        //is this code really necessary? Maybe not. JUnit will always create cafe in the annotated
+        //before method. Since this class is only to be used with JUnit it should be fine.
+        if (cafe == null) {
+            System.out.print("Cafe shouldnt be null, use before");
+            return;
+        }
+
         cafe.restockBeans(ESPRESSO_BEANS);
-        return cafe;
     }
 
 }
