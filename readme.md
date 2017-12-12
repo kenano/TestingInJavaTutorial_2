@@ -29,3 +29,21 @@ Before/After class should be annotating static methods.
 
 Since a cafe will always be created before a test, its instantiation is being moved to the "before" annotated method.    	 
     	 
+    	 
+## Hamcrest
+
+A library for creating compositional matchers.
+
+JUnit comes with the core of Hamcrest built in. To get additional features add it to dependencies
+
+	<dependency>
+	        <groupId>org.hamcrest</groupId>
+            <artifactId>hamcrest-all</artifactId>
+            <version>1.3</version>
+    </dependency>
+    
+### Matchers
+Hamstring has a large library of methods.
+
+http://hamcrest.org/JavaHamcrest/javadoc/1.3/
+

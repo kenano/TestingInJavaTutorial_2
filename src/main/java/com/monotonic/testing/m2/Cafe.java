@@ -25,10 +25,10 @@ public final class Cafe {
         milkInStock -= requiredMilk;
 
         //this is the correct way to create a Coffee instance
-//        return new Coffee(coffeeType, requiredBeans, requiredMilk);
+        return new Coffee(coffeeType, requiredBeans, requiredMilk);
 
-        //to see how the tests behave for failures, break the above line
-        return new Coffee(null, requiredBeans + 1, requiredMilk + 1);
+        //to see how the tests behave for failures, break the below line
+//        return new Coffee(null, requiredBeans + 1, requiredMilk + 1);
 
     }
 

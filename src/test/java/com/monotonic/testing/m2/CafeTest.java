@@ -1,6 +1,9 @@
 package com.monotonic.testing.m2;
 
+import org.hamcrest.Matchers;
 import org.junit.*;
+
+import java.util.regex.Matcher;
 
 import static com.monotonic.testing.m2.CoffeeType.Espresso;
 import static com.monotonic.testing.m2.CoffeeType.Latte;
@@ -56,7 +59,12 @@ public class CafeTest {
 
         // then
         //the first parameter is a diagnostic used when a test fails
-        assertEquals("Wrong amount of beans", ESPRESSO_BEANS, coffee.getBeans());
+
+        //there is a better way to do this testing using hamcrest
+//        assertEquals("Wrong amount of beans", ESPRESSO_BEANS, coffee.getBeans());
+        Assert.assertThat(coffee, Matchers.hasProperty("beans", Matchers.equalTo(ESPRESSO_BEANS)));
+
+
         assertEquals("Wrong amount of milk", NO_MILK, coffee.getMilk());
         assertEquals("Wrong coffee type", Espresso, coffee.getType());
     }
